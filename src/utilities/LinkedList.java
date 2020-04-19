@@ -215,6 +215,44 @@ public class LinkedList<E> {
 	}
 
 	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + count;
+		result = prime * result + ((head == null) ? 0 : head.hashCode());
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LinkedList<E> other = (LinkedList<E>) obj;
+		if (count != other.count)
+			return false;
+		if (head == null) {
+			if (other.head != null)
+				return false;
+		} else if (!head.equals(other.head))
+			return false;
+		Node<E> navigation = this.head;
+		Node<E> otherNav = other.head;
+		for (int i = 0; i < count; i++) {
+			if(navigation.getValue() != otherNav.getValue()) {
+				return false;
+			}
+			navigation = navigation.getNext();
+			otherNav = otherNav.getNext();
+		}
+		return true;
+	}
+
+	@Override
 	public String toString() {
 		String out = "[";
 		Node<E> navigator = head;
